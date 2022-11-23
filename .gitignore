@@ -93,3 +93,6 @@ fabric.properties
 .mvn/*
 /mvnw
 /mvnw.cmd
+/target/**
+target/*
+/target/classes/
