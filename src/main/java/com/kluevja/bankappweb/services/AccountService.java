@@ -1,46 +1,53 @@
 package com.kluevja.bankappweb.services;
 
+import com.kluevja.bankappweb.models.Account;
 import com.kluevja.bankappweb.models.Client;
 import com.kluevja.bankappweb.models.Role;
+import com.kluevja.bankappweb.repositories.AccountRepository;
 import com.kluevja.bankappweb.repositories.ClientRepository;
 import com.kluevja.bankappweb.repositories.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Optional;
 
 @Service
-public class ClientService {
+public class AccountService {
     @Autowired
     private ClientRepository clientRepository;
     @Autowired
-    private RoleRepository roleRepository;
+    private AccountRepository accountRepository;
 
-    public boolean createClient(Client client) {
-        Role roleForNewClient = roleRepository.findBySystemName("USER");
-        client.setRole(roleForNewClient);
-        client.setAccounts(new ArrayList<>());
-        clientRepository.save(client);
+    public boolean createAccount(Account account, Long clientId) {
+        account.setBalance(0);
+        accountRepository.save(account); //сохранит в БД счет с нулевым балансом
+
+        Client clientForEdit = clientRepository.getById(clientId);
+        clientForEdit.getAccounts().add(accountRepository.findTopByOrderByIdDesc());
+        clientRepository.save(clientForEdit);
+
         return true;
     }
 
-    public Optional<Client> getClient(Long id) {
-        return clientRepository.findById(id);
+    public Optional<Account> getAccount(Long id) {
+        return accountRepository.findById(id);
     }
 
-    public boolean updateClient(Client client) {
+    public boolean updateAccount(Account account) {
+        /*
         Client clientForChange = clientRepository.findById(client.getId()).get();
         clientForChange.setName(client.getName());
         clientForChange.setSurname(client.getSurname());
         clientForChange.setPatronymic(client.getPatronymic());
         clientForChange.setPassword(client.getPassword());
         clientRepository.save(clientForChange);
+
+         */
         return true;
     }
 
-    public boolean deleteClient(Long id) {
-        clientRepository.delete(clientRepository.findById(id).get());
+    public boolean deleteAccount(Long id) {
+        accountRepository.delete(accountRepository.findById(id).get());
         return true;
     }
 }
