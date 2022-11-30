@@ -5,7 +5,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
-import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Setter
@@ -21,4 +21,6 @@ public class Client {
     private String password;
     @ManyToOne
     private Role role;
+    @ManyToMany
+    private List<Account> accounts;
 }
