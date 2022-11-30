@@ -4,10 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Collection;
 
 @Entity
 @Setter
@@ -21,4 +19,6 @@ public class Client {
     private String surname;
     private String patronymic;
     private String password;
+    @ManyToOne
+    private Role role;
 }

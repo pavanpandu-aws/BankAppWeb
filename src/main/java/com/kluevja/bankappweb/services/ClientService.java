@@ -1,7 +1,9 @@
 package com.kluevja.bankappweb.services;
 
 import com.kluevja.bankappweb.models.Client;
+import com.kluevja.bankappweb.models.Role;
 import com.kluevja.bankappweb.repositories.ClientRepository;
+import com.kluevja.bankappweb.repositories.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,8 +13,12 @@ import java.util.Optional;
 public class ClientService {
     @Autowired
     private ClientRepository clientRepository;
+    @Autowired
+    private RoleRepository roleRepository;
 
     public boolean createClient(Client client) {
+        Role roleForNewClient = roleRepository.findBySystemName("USER");
+        client.setRole(roleForNewClient);
         clientRepository.save(client);
         return true;
     }
