@@ -18,15 +18,20 @@ public class AccountService {
     @Autowired
     private AccountRepository accountRepository;
 
-    public boolean createAccount(Account account, Long clientId) {
+    public boolean createAccount(Long clientId) {
+        Account account = new Account();
         account.setBalance(0);
-        accountRepository.save(account); //сохранит в БД счет с нулевым балансом
 
-        Client clientForEdit = clientRepository.getById(clientId);
-        clientForEdit.getAccounts().add(accountRepository.findTopByOrderByIdDesc());
-        clientRepository.save(clientForEdit);
+        Optional<Client> clientForEdit = clientRepository.findById(clientId); // проверяем на null
+        if (clientForEdit.isPresent()) {
+            account.setName("Счет " + clientForEdit.get().getName());
+            accountRepository.save(account); //сохранит в БД счет с нулевым балансом
+            clientForEdit.get().getAccounts().add(accountRepository.findTopByOrderByIdDesc());
+            clientRepository.save(clientForEdit.get());
+            return true;
+        }
 
-        return true;
+        return false;
     }
 
     public Optional<Account> getAccount(Long id) {

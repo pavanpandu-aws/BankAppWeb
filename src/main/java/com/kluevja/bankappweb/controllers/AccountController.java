@@ -17,9 +17,9 @@ public class AccountController {
     public AccountService accountService;
 
     @PostMapping("/create")
-    public ModelAndView create (@ModelAttribute Account account, @RequestParam Long id, RedirectAttributes model) {
+    public ModelAndView create (@RequestParam Long id, RedirectAttributes model) {
 
-        if (accountService.createAccount(account, id)) {
+        if (accountService.createAccount(id)) {
             model.addFlashAttribute("msg", "Счет успешно создан");
         } else {
             model.addFlashAttribute("msg", "Не удалось создать счет");
