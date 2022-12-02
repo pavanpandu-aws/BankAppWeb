@@ -21,6 +21,6 @@ public class Client {
     private String password;
     @ManyToOne
     private Role role;
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<Account> accounts;
 }

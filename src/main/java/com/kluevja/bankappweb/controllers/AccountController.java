@@ -1,7 +1,6 @@
 package com.kluevja.bankappweb.controllers;
 
 import com.kluevja.bankappweb.models.Account;
-import com.kluevja.bankappweb.models.Client;
 import com.kluevja.bankappweb.services.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,19 +29,23 @@ public class AccountController {
 
     @GetMapping("/get")
     public ModelAndView get (@RequestParam Long id, RedirectAttributes model) {
+        model.addFlashAttribute("account", accountService.getAccount(id));
+        return new ModelAndView("redirect:/account");
+    }
 
+    @GetMapping("/getAccountList")
+    public ModelAndView getAccountList(@RequestParam Long id, RedirectAttributes model) {
+        model.addFlashAttribute("accountList", accountService.getAccountList(id));
         return new ModelAndView("redirect:/account");
     }
 
     @PostMapping("/update")
     public ModelAndView update (@ModelAttribute Account account, RedirectAttributes model) {
-
         return new ModelAndView("redirect:/account");
     }
 
     @PostMapping("/delete")
     public ModelAndView delete (@RequestParam Long id, RedirectAttributes model) {
-
         return new ModelAndView("redirect:/account");
     }
 }
