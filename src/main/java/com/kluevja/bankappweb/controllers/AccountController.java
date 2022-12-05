@@ -35,6 +35,7 @@ public class AccountController {
 
     @GetMapping("/getAccountList")
     public ModelAndView getAccountList(@RequestParam Long id, RedirectAttributes model) {
+        System.out.println(id);
         model.addFlashAttribute("accountList", accountService.getAccountList(id));
         return new ModelAndView("redirect:/account");
     }
