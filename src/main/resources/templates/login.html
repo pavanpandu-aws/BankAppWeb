@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <title>BankAppWeb</title>
 </head>
 <body>
-    <form method="POST" action="/login">
-        <input type="email" name="email" placeholder="Адрес электронной почты">
-        <input type="password" name="password" placeholder="Пароль">
+    <form method="POST" th:action="@{/login}">
+        <input type="email" th:name="email" placeholder="Адрес электронной почты">
+        <input type="password" th:name="password" placeholder="Пароль">
         <input type="submit" value="Войти">
     </form>
 </body>

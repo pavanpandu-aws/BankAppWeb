@@ -5,6 +5,7 @@ import com.kluevja.bankappweb.models.Role;
 import com.kluevja.bankappweb.repositories.ClientRepository;
 import com.kluevja.bankappweb.repositories.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -16,11 +17,15 @@ public class ClientService {
     private ClientRepository clientRepository;
     @Autowired
     private RoleRepository roleRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public boolean createClient(Client client) {
         Role roleForNewClient = roleRepository.findBySystemName("USER");
         client.setRole(roleForNewClient);
         client.setAccounts(new ArrayList<>());
+        client.setPassword(passwordEncoder.encode(client.getPassword()));
+        client.setActive(true);
         clientRepository.save(client);
         return true;
     }
