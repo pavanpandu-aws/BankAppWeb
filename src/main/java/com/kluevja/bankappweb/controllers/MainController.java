@@ -21,8 +21,8 @@ public class MainController {
         return "account/index";
     }
 
-    @GetMapping("/login")
-    public String login() {
+    @RequestMapping(value = "/login", method = { RequestMethod.GET, RequestMethod.POST })
+    public String loginPage() {
         return "login";
     }
 
