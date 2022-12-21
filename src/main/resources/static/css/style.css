@@ -1,0 +1,103 @@
+html {
+    width: 100%;
+    height: 100%;
+    font-family: 'Manrope', sans-serif;
+}
+
+body {
+    margin: 0;
+    height: 100%;
+}
+
+header {
+    width: 100%;
+    height: 70px;
+    background-color: #6155a9;
+    margin-bottom: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+div#logo {
+    color: white;
+    font-size: 20pt;
+    margin-left: 20px;
+}
+
+div#toMain {
+    margin-right: 20px;
+    font-size: 20pt;
+}
+
+div#toMain a {
+    text-decoration: none;
+    color: white;
+    transition: .5s;
+}
+
+div#toMain a:hover {
+    color: black;
+    transition: .5s;
+}
+
+main {
+    display: flex;
+    height: 500px;
+    width: 100%;
+    align-items: center;
+}
+
+.fragmentForInputs {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.fragmentForInputs form {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+input[type="email"] {
+    height: 40px;
+    border: 3px solid #b5b5b5;
+    margin-bottom: 10px;
+    border-radius: 10px;
+}
+
+input[type="text"] {
+    height: 40px;
+    border: 3px solid #b5b5b5;
+    margin-bottom: 10px;
+    border-radius: 10px;
+}
+
+input[type="password"] {
+    height: 40px;
+    border: 3px solid #b5b5b5;
+    margin-bottom: 10px;
+    border-radius: 10px;
+}
+
+input[type="number"] {
+    height: 40px;
+    border: 3px solid #b5b5b5;
+    margin-bottom: 10px;
+    border-radius: 10px;
+}
+
+input[type="submit"] {
+    height: 40px;
+    border: 3px solid #b5b5b5;
+    margin-bottom: 10px;
+    border-radius: 10px;
+}

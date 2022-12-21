@@ -4,14 +4,17 @@ import com.kluevja.bankappweb.models.Client;
 import com.kluevja.bankappweb.models.Role;
 import com.kluevja.bankappweb.repositories.ClientRepository;
 import com.kluevja.bankappweb.repositories.RoleRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
+@Slf4j
 public class ClientService {
     @Autowired
     private ClientRepository clientRepository;
@@ -34,7 +37,7 @@ public class ClientService {
         return clientRepository.findById(id);
     }
 
-    public boolean updateClient(Client client) {
+    public boolean updateClient(Client client) throws NoSuchElementException {
         Client clientForChange = clientRepository.findById(client.getId()).get();
         clientForChange.setName(client.getName());
         clientForChange.setSurname(client.getSurname());

@@ -2,6 +2,7 @@ package com.kluevja.bankappweb.controllers;
 
 import com.kluevja.bankappweb.models.Client;
 import com.kluevja.bankappweb.services.ClientService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -14,6 +15,7 @@ import java.util.Optional;
 
 @Controller
 @RequestMapping("/client")
+@Slf4j
 public class ClientController {
 
     @Autowired
@@ -22,6 +24,7 @@ public class ClientController {
 
     @PostMapping("/create")
     public ModelAndView create(@ModelAttribute Client client, RedirectAttributes model) {
+        log.info("Попытка создать клиента " + client);
         if (clientService.createClient(client)) {
             model.addFlashAttribute("msg", "Пользователь успешно создан");
         } else {
@@ -43,10 +46,12 @@ public class ClientController {
 
     @PostMapping("/update")
     public ModelAndView update(@ModelAttribute Client client, RedirectAttributes model) {
-        if (clientService.updateClient(client)) {
+        try {
+            clientService.updateClient(client);
             model.addFlashAttribute("msg", "Пользователь успешно обновлен");
-        } else {
+        } catch (Exception e) {
             model.addFlashAttribute("msg", "Не удалось найти пользователя");
+            log.error("Пользователя с таким ID не найдено : " + client.getId());
         }
         return new ModelAndView("redirect:/client");
     }
